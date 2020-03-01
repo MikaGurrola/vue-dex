@@ -42,14 +42,14 @@ export default {
 
     fetchData: function() {
       const vm = this;
-      console.log('getting...', vm.name);
+      // console.log('getting...', vm.name);
       fetch(this.pokemon)
         .then((response) => {
           return response.json();
         })
         .then((data) => {
           vm.data = data;
-          console.log(data);
+          // console.log(data);
         });
 
     }
@@ -62,10 +62,14 @@ export default {
 <style scoped lang="scss">
 
 .pokemonCard {
-  border: 2px solid red;
-
   &__name {
     text-transform: uppercase;
+    margin: 0;
+    font-size: 1.8em;
+    @media screen and (min-width: 500px) {
+      margin: 1em 0;
+      font-size: 2em;
+    }
   }
 }
 

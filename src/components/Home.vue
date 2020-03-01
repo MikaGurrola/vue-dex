@@ -1,14 +1,18 @@
 <template>
   <div class="home">
-    <h1>Pokedex</h1>
     <div class="container">
-      <ul class="list">
+      <div class="container__detail">
+        <div class="pokeball" :class="{ rotate: doRotate }">
+          <div class="pokeball__center"></div>
+          <div class="empty" v-if="selected === 'none'"> empty@</div>
+          <ListItem v-bind:pokemon="selected" v-bind:name="name" v-if="selected !== 'none'" />
+        </div>
+      </div>
+      <ul class="list container__list">
         <li v-for="pokemon in pokedexEntries.results" :key="pokemon.name" v-on:click="selectPokemon(pokemon)">
           <button class="list__item" :class="{ active: name === pokemon.name }">{{pokemon.name}}</button>
-          <!-- <p class="list__item" :class="{ active: name === pokemon.name }">{{pokemon.name}}</p> -->
         </li>
       </ul>
-      <ListItem v-bind:pokemon="selected" v-bind:name="name" />
     </div>
 
   </div>
@@ -29,7 +33,8 @@ export default {
     return {
       pokedexEntries: {},
       selected: 'none',
-      name: 'none'
+      name: 'none',
+      doRotate: false
     }
   },
 
@@ -57,7 +62,12 @@ export default {
     selectPokemon: function(event) {
       const vm = this;
       vm.selected = event.url;
-      vm.name = event.name
+      vm.name = event.name;
+      vm.doRotate = true
+      setTimeout(() => {
+        vm.doRotate = false;
+      }, 1000);
+      
     }
 
   }
@@ -72,21 +82,49 @@ export default {
 
 .container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+    "detail"
+    "list"
+  ;
   grid-gap: 20px;
   align-items: start;
-  border: 2px solid blue;
-  max-width: 600px;
+  max-width: 900px;
   margin: auto;
+
+  @media screen and (min-width: 500px) {
+    grid-template-areas: 
+      "list detail"
+      "list detail"
+      "list detail"
+    ; 
+    align-items: center;
+  }
+
+
+  &__detail {
+    grid-area: detail;
+    position: sticky;
+    top: 0;
+  }
+
+  &__list {
+    grid-area: list;
+  }
 }
 
 .list {
   margin: 0;
   padding: 0;
   list-style: none;
-  max-height: 600px;
+  max-height: 53vh;
   border: 2px solid green;
   overflow: auto;
+  border-radius: 14px;
+  border: 2px solid var(--secondaryColor);
+
+  @media screen and (min-width: 500px) {
+    max-height: 600px;
+  }
 
   &__item {
     transition: all 0.25s linear;
@@ -114,6 +152,118 @@ export default {
 .active, .active:focus {
   border-color: var(--primaryColor);
   background-color: var(--primaryColor);
+}
+
+.pokeball {
+  height: 325px;
+  width: 325px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--secondaryColor);
+  margin: auto;
+  transform-origin: center;
+
+  @media screen and (min-width: 500px) {
+    height: 350px;
+    width: 350px;
+  }
+
+  .pokemonCard {
+    position: relative; 
+    z-index: 1;
+  }
+
+  &:before, &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    left: 0;
+    height: 160px;
+    z-index: -1;
+
+    @media screen and (min-width: 500px) {
+      height: 175px;
+    }
+  }
+
+
+  &__center {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background-color: var(--secondaryColor);
+    position: absolute;
+    z-index: 0;
+
+    @media screen and (min-width: 500px) {
+      height: 100px;
+      width: 100px;
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      height: 35px;
+      width: 35px;
+      border-radius: 50%;
+      background-color: white;
+      margin: auto;
+
+      @media screen and (min-width: 500px) {
+        height: 45px;
+        width: 45px;
+      }
+    }
+  }
+
+  &:before {
+    /* border: 2px solid blue; */
+    background: var(--primaryColor);
+    top: 0;
+  }
+  &:after {
+    bottom: 0;
+    /* border: 2px solid green; */
+    background: white;
+  }
+
+
+  &.rotate {
+    /* animation: spin 0.75s cubic-bezier(0.4, 0.0, 0.2, 1) forwards; */
+    animation: spin 0.75s linear forwards;
+  }
+}
+
+@keyframes spin { 
+  0% { 
+    -webkit-transform: rotate(0deg); 
+    transform:rotate(0deg); 
+    -webkit-filter: blur(0);
+    filter: blur(0);
+  } 
+
+  50% {
+    -webkit-transform: rotate(180deg); 
+    transform:rotate(180deg); 
+    -webkit-filter: blur(4px);
+    filter: blur(4px);
+  }
+  100% { 
+    -webkit-transform: rotate(360deg); 
+    transform:rotate(360deg); 
+    -webkit-filter: blur(0);
+    filter: blur(0);
+  } 
 }
 
 </style>
