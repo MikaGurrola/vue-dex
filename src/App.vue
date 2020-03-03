@@ -37,14 +37,21 @@ export default {
 }
 
 .header {
-  img { width: 100%; height: auto;}
+  img { width: 40px; height: auto; justify-self: end;}
+  h1 {width: fit-content; justify-self: start;}
   display: grid;
-  grid-template-columns: 40px 1fr;
+  grid-template-columns: 1fr 2fr;
   grid-gap: 20px;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  h1 {width: fit-content; }
+  padding: 0 20px;
+  max-width: 900px;
+  margin: auto;
+
+  @media screen and (min-width: 500px) {
+    grid-template-columns: 40px 1fr;
+    padding: 20px;
+  }
 }
 
 </style>
