@@ -32,7 +32,6 @@ export default {
   },
 
   methods: {
-
     fetchData: function() {
       fetch(this.pokemon)
         .then((response) => {

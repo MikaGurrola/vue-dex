@@ -1,16 +1,20 @@
 <template>
-  <div class="List">
-    <ul class="list container__list">
-      <li v-for="pokemon in data" :key="pokemon.name" v-on:click="selectPokemon(pokemon)">
-        <button class="list__item" :class="{ active: active === pokemon.name }">{{pokemon.name}}</button>
-      </li>
-    </ul>
-  </div>
+  <ul class="list container__list">
+    <li class="list__item" v-for="pokemon in data" :key="pokemon.name" v-on:click="selectPokemon(pokemon)">
+      <button :class="{ active: active === pokemon.name }">{{pokemon.name}}</button>
+      
+    </li>
+    <li v-if="!data.length">
+      <p>
+        <b>No results found</b> <br>
+        Is that a pokemon in the first Gen?
+      </p>
+    </li>
+  </ul>
 </template>
 
 <script>
 export default {
-
   name: 'List',
   props: ['data'],
 
@@ -22,15 +26,12 @@ export default {
   },
 
   methods: {
-
     selectPokemon: function(event) {
       this.selected = event.url
       this.active = event.name
       this.$emit('iChooseYou', event.url)
     }
-
   }
-
 
 }
 </script>
@@ -48,23 +49,25 @@ export default {
   border-radius: 14px;
   border: 2px solid var(--secondaryColor);
 
+  &__item {
+    &:first-child button{ border-top: none; }
+    &:last-child button{ border-bottom: none; }
+  }
+
   @media screen and (min-width: 500px) {
     max-height: 600px;
   }
 
-  &__item {
+  button {
     transition: all 0.25s linear;
     margin: 0;
-    padding: 5px 10px;
-    margin: 0;
+    padding: 10px 20px;
     text-transform: uppercase;
-    background-color: white;
     display: block;
     width: 100%;
     border: none;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 20px;
-    padding: 10px 20px;
     border-top: 2px solid transparent;
     border-bottom: 2px solid transparent;
 
@@ -76,7 +79,6 @@ export default {
     }
   }
 }
-
 
 .active, .active:focus {
   border-color: var(--primaryColor);

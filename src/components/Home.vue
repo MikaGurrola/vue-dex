@@ -9,9 +9,9 @@
         </div>
         <ListItem :pokemon="selected" />
       </div>
-      <List :data="pokedexEntries.results" v-on:iChooseYou="selectedPokemon" />
+      <Search :data="pokemans" v-on:search="filterSearch" />
+      <List :data="pokemans" v-on:iChooseYou="selectedPokemon" />
     </div>
-
   </div>
 </template>
 
@@ -20,25 +20,32 @@ const Pokedex = require('pokeapi-js-wrapper');
 const P = new Pokedex.Pokedex();
 import List from './List.vue';
 import ListItem from './ListItem.vue';
+import Search from './Search.vue';
 
 export default {
   name: 'Home',
   components: {
     List,
-    ListItem
+    ListItem,
+    Search
   },
 
   data() {
     return {
       pokedexEntries: {},
+      pokemans: [],
       selected: 'none',
-      name: 'none',
       doRotate: false
     }
   },
 
   mounted: function () {
-    localStorage.getItem('pokedex') ? this.pokedexEntries = JSON.parse(localStorage.getItem('pokedex')) : this.getPokedexData();
+    if(localStorage.getItem('pokedex')) {
+      this.pokedexEntries = JSON.parse(localStorage.getItem('pokedex'));
+      this.pokemans = [...this.pokedexEntries.results]
+    } else {
+      this.getPokedexData();
+    }
   },
 
 
@@ -50,8 +57,9 @@ export default {
         offset: 0
       }
       P.getPokemonsList(interval)
-        .then(function(response) {
+        .then(response => {
           this.pokedexEntries = response;
+          this.pokemans = [...response.results];
           localStorage.setItem('pokedex', JSON.stringify(response));
         }
       )
@@ -63,7 +71,10 @@ export default {
       setTimeout(() => {
         this.doRotate = false;
       }, 700);
+    },
 
+    filterSearch(value) {
+      this.pokemans = value.length ? this.pokedexEntries.results.filter(pokemon => pokemon.name.toLowerCase().indexOf(value.toLowerCase()) > -1) : [...this.pokedexEntries.results];
     }
 
   }
@@ -80,6 +91,7 @@ export default {
   display: grid;
   grid-template-areas: 
     "detail"
+    "search"
     "list"
   ;
   grid-gap: 20px;
@@ -88,20 +100,22 @@ export default {
   margin: auto;
 
   @media screen and (min-width: 500px) {
+    grid-template-rows:  auto 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas: 
+      "search detail"
       "list detail"
-      "list detail"
-      "list detail"
-    ; 
-    align-items: center;
+    ;
   }
 
 
   &__detail {
     grid-area: detail;
     position: relative;
-    /* position: sticky;
-    top: 0; */
+  }
+
+  &__search {
+    grid-area: search;
   }
 
   &__list {
@@ -218,17 +232,18 @@ export default {
 @keyframes spin { 
   0% { 
     -webkit-transform: rotate(0deg); 
-    transform:rotate(0deg); 
+    transform: rotate(0deg); 
   } 
 
   50% {
     -webkit-transform: rotate(180deg); 
-    transform:rotate(180deg); 
+    transform: rotate(180deg); 
   }
   100% { 
     -webkit-transform: rotate(360deg); 
-    transform:rotate(360deg); 
+    transform: rotate(360deg); 
   } 
 }
+
 
 </style>
