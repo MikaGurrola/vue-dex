@@ -121,6 +121,7 @@ export default {
   border: 2px solid var(--secondaryColor);
   margin: auto;
   transform-origin: center;
+  opacity: 0.5;
 
   @media screen and (min-width: 500px) {
     height: 350px;
