@@ -7,7 +7,7 @@
     <li v-if="!data.length">
       <p>
         <b>No results found</b> <br>
-        Is that a pokemon in the first Gen?
+        Is that a Pokémon in the first Generation?
       </p>
     </li>
   </ul>
@@ -70,7 +70,8 @@ export default {
     line-height: 20px;
     border-top: 2px solid transparent;
     border-bottom: 2px solid transparent;
-
+    background: transparent;
+    
     &:hover, &:focus{
       cursor: pointer;
       outline: none;

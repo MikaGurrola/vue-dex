@@ -16,6 +16,9 @@
 </template>
 
 <script>
+const Pokedex = require('pokeapi-js-wrapper');
+const P = new Pokedex.Pokedex();
+
 export default {
   name: 'ListItem',
   props: ['pokemon', 'name'],
@@ -35,11 +38,27 @@ export default {
     fetchData: function() {
       fetch(this.pokemon)
         .then((response) => {
-          return response.json();
+          return response.json()
         })
         .then((data) => {
-          this.data = data;
+          this.data = data
+          this.getEvolution();
         });
+    },
+
+    getEvolution: function() {
+
+      P.getEvolutionChainById(this.data.id)
+      .then(function(response) {
+        console.log(response);
+      });
+      // fetch(this.pokemon)
+      //   .then((response) => {
+      //     return response.json();
+      //   })
+      //   .then((data) => {
+      //     console.log('evolution?:', data);
+      //   });
     }
   }
 
