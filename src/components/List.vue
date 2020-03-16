@@ -43,8 +43,7 @@ export default {
   margin: 0;
   padding: 0;
   list-style: none;
-  max-height: 400px;
-  border: 2px solid green;
+  max-height: 100%;
   overflow: auto;
   border-radius: 14px;
   border: 2px solid var(--secondaryColor);
@@ -71,7 +70,7 @@ export default {
     border-top: 2px solid transparent;
     border-bottom: 2px solid transparent;
     background: transparent;
-    
+
     &:hover, &:focus{
       cursor: pointer;
       outline: none;

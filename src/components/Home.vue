@@ -90,11 +90,12 @@ export default {
 .container {
   display: grid;
   grid-template-areas: 
-    "detail"
-    "search"
     "list"
+    "search"
+    "detail"
   ;
   grid-gap: 20px;
+  grid-template-rows: 1fr  auto 1fr;
   align-items: start;
   max-width: 900px;
   margin: auto;
