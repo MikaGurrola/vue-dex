@@ -1,8 +1,13 @@
 <template>
-  <ul class="list container__list">
-    <li class="list__item" v-for="pokemon in data" :key="pokemon.name" v-on:click="selectPokemon(pokemon)">
+  <ul class="list container__list" ref="list">
+    <li 
+      class="list__item" 
+      v-for="pokemon in data" 
+      :key="pokemon.name" 
+      v-on:click="selectPokemon(pokemon)"
+      ref="data"
+    >
       <button :class="{ active: active === pokemon.name }">{{pokemon.name}}</button>
-      
     </li>
     <li v-if="!data.length">
       <p>
@@ -21,7 +26,7 @@ export default {
   data() {
     return {
       selected: 'none',
-      active: ''
+      active: '',
     }
   },
 

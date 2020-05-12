@@ -96,7 +96,7 @@ input {
   flex: 0;
   order: 2;
 
-  &:focus { 
+  &:focus, &:not(:placeholder-shown) { 
     outline: none;
     flex: 1;
     padding: 8px;

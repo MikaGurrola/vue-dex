@@ -2,7 +2,7 @@
   <div id="app">
     <div class="header">
       <img alt="Vue logo" src="./assets/logo.png">
-      <h1>Pokedex</h1>
+      <h1>Pokédex</h1>
     </div>
     <Home />
   </div>
