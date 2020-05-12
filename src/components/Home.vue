@@ -107,7 +107,7 @@ export default {
   max-height: 80vh;
   margin: auto;
 
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 600px) {
     grid-template-rows:  auto 1fr;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
@@ -146,7 +146,7 @@ export default {
   transform-origin: center;
   opacity: 0.5;
 
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 600px) {
     height: 350px;
     width: 350px;
   }
@@ -166,7 +166,7 @@ export default {
     height: 140px;
     z-index: -1;
 
-    @media screen and (min-width: 500px) {
+    @media screen and (min-width: 600px) {
       height: 175px;
     }
   }
@@ -193,7 +193,7 @@ export default {
       background-color: var(--secondaryColor);
       margin: auto;
 
-      @media screen and (min-width: 500px) {
+      @media screen and (min-width: 600px) {
         height: 100px;
         width: 100px;
       }
@@ -203,7 +203,7 @@ export default {
       background-color: white;
       height: 50px;
       width: 50px;
-      @media screen and (min-width: 500px) {
+      @media screen and (min-width: 600px) {
         height: 65px;
         width: 65px;
       }
@@ -215,7 +215,7 @@ export default {
       box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
       z-index: 1;
       background-color: white;
-      @media screen and (min-width: 500px) {
+      @media screen and (min-width: 600px) {
         height: 45px;
         width: 45px;
       }

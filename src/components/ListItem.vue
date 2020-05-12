@@ -94,7 +94,7 @@ export default {
   right: 0;
   bottom: 50px;
   left: 0;
-  height: fit-content;
+  height: 320px;
   margin: auto;
   margin: auto;
   display: flex;
@@ -102,11 +102,15 @@ export default {
   align-items: center;
   justify-content: space-around;
 
+  @media screen and (min-width: 600px) {
+    height: 350px;
+  }
+
   &__name {
     text-transform: uppercase;
     margin: 30px 0 0 0;
     font-size: 1.8em;
-    @media screen and (min-width: 500px) {
+    @media screen and (min-width: 600px) {
       margin: 1em 0;
       font-size: 2em;
     }

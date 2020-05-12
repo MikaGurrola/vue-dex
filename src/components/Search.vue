@@ -81,6 +81,7 @@ label {
 }
 
 input {
+  // TODO: fix input transtion - broken on firefox
   width: 100%;
   margin: 0;
   border-left: none;

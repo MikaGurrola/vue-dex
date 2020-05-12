@@ -58,7 +58,7 @@ export default {
     &:last-child button{ border-bottom: none; }
   }
 
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 600px) {
     max-height: 600px;
   }
 

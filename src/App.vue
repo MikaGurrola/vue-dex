@@ -48,7 +48,7 @@ export default {
   max-width: 900px;
   margin: auto;
 
-  @media screen and (min-width: 500px) {
+  @media screen and (min-width: 600px) {
     grid-template-columns: 40px 1fr;
     padding: 20px;
   }
